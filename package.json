@@ -1,0 +1,28 @@
+{
+  "name": "app-next-module",
+  "version": "0.0.1-alpha",
+  "description": "app-next module base class",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/eslint lib spec && ./node_modules/.bin/istanbul cover --root lib node_modules/.bin/jasmine"
+  },
+  "author": "g13013@gmail.com",
+  "license": "MIT",
+  "keywords": [
+    "app-next",
+    "module",
+    "base class"
+  ],
+  "dependencies": {
+    "co-request": "^1.0.0",
+    "fs-node": "^1.0.0",
+    "http-status": "^0.2.0",
+    "node-http-error": "^0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "eslint-plugin-jasmine": "^1.6.0",
+    "istanbul": "^0.4.2",
+    "jasmine": "^2.4.1"
+  }
+}
