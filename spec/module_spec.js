@@ -30,6 +30,7 @@ var AppInterface = function () {
     models: {},
     helpers: {},
     api: {},
+    Joi: {},
     Schema: jasmine.createSpy('Schema').and.callFake(function (schema) {return schema}),
     getSchema: jasmine.createSpy('getSchema').and.callFake(function (name) {return this.schemas[name]}),
     model: jasmine.createSpy('model').and.callFake(function () {return this._models.shift()}),
@@ -245,8 +246,9 @@ describe('ApplicationModule', function () {
 
       var handler = function* () {};
       var validate = {};
-      var validateSpy = jasmine.createSpy('validate').and.callFake(function () {
+      var validateSpy = jasmine.createSpy('validate').and.callFake(function (validate) {
         expect(this).toBe(mod);
+        expect(validate).toBe(mod.validator);
         return validate;
       });
       var obj = mod.setupRouteHandler('someRoute', handler, 'method', validateSpy);
@@ -301,14 +303,12 @@ describe('ApplicationModule', function () {
     });
   });
 
-  describe('#serializeRoute', function() {
-    it('handle module', function () {
-      spyOnLoaders();
-      var appInterface = new AppInterface();
-      var mod = new ApplicationModule(appInterface);
-      expect(mod.serializeRoute('_arg_')).toBe(':arg');
-      expect(mod.serializeRoute('arg')).toBe('arg');
-    });
+  it('#serializeRoute', function() {
+    spyOnLoaders();
+    var appInterface = new AppInterface();
+    var mod = new ApplicationModule(appInterface);
+    expect(mod.serializeRoute('_arg_')).toBe(':arg');
+    expect(mod.serializeRoute('arg')).toBe('arg');
   });
 
   describe('#loadApi', function() {
