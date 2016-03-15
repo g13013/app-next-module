@@ -32,6 +32,8 @@ var AppInterface = function () {
     api: {},
     validators: {},
     utils: {},
+    HTTPError: {},
+    HTTPStatus: {},
     Schema: jasmine.createSpy('Schema').and.callFake(function (schema) {return schema}),
     getSchema: jasmine.createSpy('getSchema').and.callFake(function (name) {return this.schemas[name]}),
     model: jasmine.createSpy('model').and.callFake(function () {return this._models.shift()}),
@@ -61,7 +63,7 @@ function spyOnLoaders() {
 }
 
 function isReadonly(obj, key, value) {
-  expect(obj[key]).toBe(value);
+  expect(obj[key]).toBe(value, `expected ${key} to be proxied`);
   expect(() => obj[key] = 1).toThrow();
 }
 
@@ -118,6 +120,10 @@ describe('ApplicationModule', function () {
     });
 
     it('proxies app interface properties as readonly', function () {
+      isReadonly(mod, 'utils', appInterface.utils);
+      isReadonly(mod, 'validators', appInterface.validators);
+      isReadonly(mod, 'HTTPError', appInterface.HTTPError);
+      isReadonly(mod, 'HTTPStatus', appInterface.HTTPStatus);
       isReadonly(mod, 'schemas', appInterface.schemas);
       isReadonly(mod, 'models', appInterface.models);
       isReadonly(mod, 'router', appInterface.router);
@@ -140,12 +146,6 @@ describe('ApplicationModule', function () {
     it('request as readonly', function () {
       isReadonly(mod, 'request', request);
     });
-  });
-
-  it('#utils', function () {
-    var appInterface = new AppInterface();
-    var mod = new ApplicationModule(appInterface);
-    expect(mod.utils).toBe(appInterface.utils);
   });
 
   describe('#model', function() {
