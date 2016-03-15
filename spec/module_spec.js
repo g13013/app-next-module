@@ -30,12 +30,12 @@ var AppInterface = function () {
     models: {},
     helpers: {},
     api: {},
-    Joi: {},
+    validators: {},
     Schema: jasmine.createSpy('Schema').and.callFake(function (schema) {return schema}),
     getSchema: jasmine.createSpy('getSchema').and.callFake(function (name) {return this.schemas[name]}),
     model: jasmine.createSpy('model').and.callFake(function () {return this._models.shift()}),
     Router: Router,
-    Lgger: Logger,
+    Logger: Logger,
     router: new Router(),
     logger: new Logger(),
     moduleDescriptor: {path: `${__dirname}/fixtures`, packageInfo: {}},
@@ -248,7 +248,7 @@ describe('ApplicationModule', function () {
       var validate = {};
       var validateSpy = jasmine.createSpy('validate').and.callFake(function (validate) {
         expect(this).toBe(mod);
-        expect(validate).toBe(mod.validator);
+        expect(validate).toBe(mod.validators);
         return validate;
       });
       var obj = mod.setupRouteHandler('someRoute', handler, 'method', validateSpy);
