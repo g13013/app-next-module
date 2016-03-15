@@ -1,5 +1,7 @@
 # AppNext Module
 
+[![Code Climate](https://codeclimate.com/github/g13013/node-app-next-module/badges/gpa.svg)](https://codeclimate.com/github/g13013/node-app-next-module)
+
 Base class for `app-next` modules
 
 **This is 0.x beta software.**
