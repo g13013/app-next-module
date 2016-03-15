@@ -31,6 +31,7 @@ var AppInterface = function () {
     helpers: {},
     api: {},
     validators: {},
+    utils: {},
     Schema: jasmine.createSpy('Schema').and.callFake(function (schema) {return schema}),
     getSchema: jasmine.createSpy('getSchema').and.callFake(function (name) {return this.schemas[name]}),
     model: jasmine.createSpy('model').and.callFake(function () {return this._models.shift()}),
@@ -139,6 +140,12 @@ describe('ApplicationModule', function () {
     it('request as readonly', function () {
       isReadonly(mod, 'request', request);
     });
+  });
+
+  it('#utils', function () {
+    var appInterface = new AppInterface();
+    var mod = new ApplicationModule(appInterface);
+    expect(mod.utils).toBe(appInterface.utils);
   });
 
   describe('#model', function() {
