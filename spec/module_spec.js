@@ -2,6 +2,7 @@
 var Module = require('module');
 var fs = require('fs');
 var ApplicationModule = require('../lib/index');
+var utils = require('app-next/lib/helpers/utils');
 var request = require('co-request');
 
 /*global spyOn, jasmine, expect, describe*/
@@ -31,7 +32,7 @@ var AppInterface = function () {
     helpers: {},
     api: {},
     validators: {},
-    utils: {},
+    utils: utils,
     HTTPError: {},
     HTTPStatus: {},
     Schema: jasmine.createSpy('Schema').and.callFake(function (schema) {return schema}),
@@ -45,15 +46,6 @@ var AppInterface = function () {
     moduleName: 'Name'
   }
 }
-
-Object.defineProperty(String.prototype, 'camelized', {
-  get () {
-    return this.replace(/[_ \-](\w)/g, function (match, letter) {
-      return letter[0].toUpperCase();
-    });
-  }
-});
-String.prototype.classified = function () {return this};
 
 // disables loadApi, loadRoutes, loadApi
 function spyOnLoaders() {

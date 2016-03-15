@@ -20,6 +20,7 @@
     "node-http-error": "^0.2.0"
   },
   "devDependencies": {
+    "app-next": "git+ssh://git@gitlab.com/g13013/node-app-next.git",
     "coveralls": "^2.11.8",
     "eslint": "^2.2.0",
     "eslint-plugin-jasmine": "^1.6.0",
