@@ -1,6 +1,7 @@
 # AppNext Module
 
 [![Code Climate](https://codeclimate.com/github/g13013/node-app-next-module/badges/gpa.svg)](https://codeclimate.com/github/g13013/node-app-next-module)
+[![Coverage Status](https://coveralls.io/repos/github/g13013/node-app-next-module/badge.svg?branch=master)](https://coveralls.io/github/g13013/node-app-next-module?branch=master)
 
 Base class for `app-next` modules
 
