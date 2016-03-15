@@ -345,7 +345,20 @@ describe('ApplicationModule', function () {
       spyOn(Module.prototype, 'require').and.callFake((name) => /fn$/.test(name) ? fnSchema : objSchema);
     });
 
-    it('return the already loaded model', function () {
+    it('throws if module does not exit', function () {
+      Module.prototype.require.and.throwError();
+      expect(() => mod.loadSchema('no')).toThrow();
+    });
+
+    it('calls app.model with name and schema', function () {
+      var result = {};
+      appInterface._models = [result];
+      var model = mod.loadSchema('obj');
+      expect(appInterface.model).toHaveBeenCalledWith('obj', objSchema);
+      expect(model).toBe(result); // returns the result of appInterface#model
+    });
+
+    it('returns the already loaded model', function () {
       appInterface.schemas.existant = {};
       expect(mod.loadSchema('existant')).toBe(appInterface.schemas.existant);
     });
